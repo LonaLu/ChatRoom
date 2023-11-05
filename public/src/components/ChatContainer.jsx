@@ -5,6 +5,8 @@ import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import { IoMdThumbsUp, IoMdThumbsDown } from "react-icons/io";
+
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
@@ -53,6 +55,14 @@ export default function ChatContainer({ currentChat, socket }) {
     setMessages(msgs);
   };
 
+  const handleUpvote = (upvotedMessage) => {
+    handleSendMsg("Upvoted \"" + upvotedMessage + "\" :)")
+  }
+
+  const handleDownvote = (downvotedMessage) => {
+    handleSendMsg("Downvoted \"" + downvotedMessage + "\" :(")
+  }
+
   useEffect(() => {
     if (socket.current) {
       socket.current.on("msg-recieve", (msg) => {
@@ -97,6 +107,17 @@ export default function ChatContainer({ currentChat, socket }) {
                 <div className="content ">
                   <p>{message.message}</p>
                 </div>
+              </div>
+              <div className={`message ${
+                  message.fromSelf ? "sended" : "recieved"
+                }`}>
+                  <button type="button">
+                    <IoMdThumbsUp onClick={() => handleUpvote(message.message)}/>
+                  </button>
+                  <div>-</div>
+                  <button type="button">
+                    <IoMdThumbsDown onClick={() => handleDownvote(message.message)}/>
+                  </button>
               </div>
             </div>
           );
@@ -175,6 +196,25 @@ const Container = styled.div`
       justify-content: flex-start;
       .content {
         background-color: #9900ff20;
+      }
+    }
+    button {
+      padding: 0.2rem 0.2rem;
+      border-radius: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #9a86f3;
+      border: none;
+      @media screen and (min-width: 720px) and (max-width: 1080px) {
+        padding: 0.3rem 1rem;
+        svg {
+          font-size: 1rem;
+        }
+      }
+      svg {
+        font-size: 1rem;
+        color: white;
       }
     }
   }
