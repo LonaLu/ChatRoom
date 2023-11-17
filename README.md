@@ -59,3 +59,27 @@ kubectl run server --image=client --port=5000 --image-pull-policy=Never --expose
 
 minikube service client
 ```
+
+## Requirements Pointer
+### Overview
+1. Frontend: react
+2. Backend: Node.js
+3. Protocal: RESTful, Websockets
+4. Database: MongoDB
+5. Infrastructure: Docker + Minikube
+
+### Frontend
+1. Video 00:00
+2. Video 00:35
+3. Video 01:10
+4. Video 01:15
+5. Video 01:30
+6. Video 
+
+## Backend
+1. ```server/controllers/userController.js register```
+2. ```server/controllers/userController.js login```
+3. ```server/controllers/userController.js login```
+4. ```server/controllers/messageController.js addMessage```
+5. In currect application, upvote and downvote are handled as automatic messages. In other scenarios, Mongodb also uses locking and concurrency control to prevent clients modifying the same data simultaneously.
+6. ```server/controllers/userController.js login```
